@@ -65,6 +65,45 @@ public class CompraTest {
 		assertEquals(compraEsperada, compraDeserializada);
 	}
 	
+	@Test
+	public void deveSerializarDuasGeladeirasIguais() {
+		String xmlEsperado = "<compra>\n"
+							+ "  <id>15</id>\n"
+							+ "  <produtos>\n"
+							+ "    <produto codigo=\"1587\">\n"
+							+ "      <nome>Geladeira</nome>\n"
+							+ "      <preco>2000.0</preco>\n"
+							+ "      <descrição>Geladeira com freezer invertido</descrição>\n"
+							+ "    </produto>\n"
+							+ "    <produto codigo=\"1587\">\n"
+							+ "      <nome>Geladeira</nome>\n"
+							+ "      <preco>2000.0</preco>\n"
+							+ "      <descrição>Geladeira com freezer invertido</descrição>\n"
+							+ "    </produto>\n"
+							+ "  </produtos>\n"
+							+ "</compra>";
+		
+		Compra compra = compraComGeladeirasIguais();
+		
+		XStream xstream = xstreamParaCompraEProduto();
+		xstream.setMode(XStream.NO_REFERENCES);
+		
+		String xmlGerado = xstream.toXML(compra);
+		
+		assertEquals(xmlEsperado, xmlGerado);
+	}
+	
+	private Compra compraComGeladeirasIguais() {
+		Produto geladeira = geladeira();
+	
+		List<Produto> produtos = new ArrayList<>();
+		produtos.add(geladeira);
+		produtos.add(geladeira);
+		
+		Compra compra = new Compra(15, produtos);
+		return compra;
+	}
+	
 	private XStream xstreamParaCompraEProduto() {
 		XStream xstream = new XStream();
 		xstream.alias("compra", Compra.class);
