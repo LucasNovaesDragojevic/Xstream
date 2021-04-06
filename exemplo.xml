@@ -1,5 +1,15 @@
-<produto>
-	<nome>Geladeira</nome>
-	<preco>2000.00</preco>
-	<descricao>Geladeira com freezer invertido</descricao>
-</produto>
+<compra>
+	<id>15</id>
+	<produtos>
+		<produto codigo="1587">
+			<nome>Geladeira</nome>
+			<preco>2000.00</preco>
+			<descricao>Geladeira com freezer invertido</descricao>
+		</produto>
+		<produto codigo="1588">
+			<nome>Batedeira</nome>
+			<preco>200.0</preco>
+			<descricao>Batedeira de aço</descricao>
+		</produto>
+	</produtos>
+</compra>
