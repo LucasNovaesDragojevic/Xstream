@@ -144,6 +144,44 @@ public class CompraTest {
 		assertEquals(xmlEsperado, xmlGerado);
 	}
 	
+	@Test
+	public void deveUtilizarUmConversorTotalmenteCustomizado() {
+		String xmlEsperado = "<compra estilo=\"novo\">\n"
+							+ "  <id>15</id>\n"
+							+ "  <fornecedor>guilherme.silveira@caelum.com.br</fornecedor>\n"
+							+ "  <endereco>\n"
+							+ "    <linha1>Rua Vergueiro 3185</linha1>\n"
+							+ "    <linha2>8 andar - São Paulo - SP</linha2>\n"
+							+ "  </endereco>\n"
+							+ "  <produtos>\n"
+							+ "    <produto codigo=\"1587\">\n"
+							+ "      <nome>Geladeira</nome>\n"
+							+ "      <preco>2000.0</preco>\n"
+							+ "      <descrição>Geladeira com freezer invertido</descrição>\n"
+							+ "    </produto>\n"
+							+ "    <produto codigo=\"1587\">\n"
+							+ "      <nome>Geladeira</nome>\n"
+							+ "      <preco>2000.0</preco>\n"
+							+ "      <descrição>Geladeira com freezer invertido</descrição>\n"
+							+ "    </produto>\n"
+							+ "  </produtos>\n"
+							+ "</compra>";
+		
+		Compra compra = compraComGeladeirasIguais();
+		
+		XStream xstream = xstreamParaCompraEProduto();
+		xstream.registerConverter(new CompraDiferenteConverter());
+		xstream.setMode(XStream.NO_REFERENCES);
+		
+		String xmlGerado = xstream.toXML(compra);
+		
+		assertEquals(xmlEsperado, xmlGerado);
+		
+		Compra deserializado = (Compra) xstream.fromXML(xmlGerado);
+		
+		assertEquals(compra, deserializado);
+	}
+	
 	private Compra compraComLivroEMusica() {
 		Produto livro = new Livro("O pássaro raro", 100.00, "Dez histórias sobre a existência", 1589);
 		Produto musica = new Livro("Meu passeio", 100.00, "Música livre", 1570);

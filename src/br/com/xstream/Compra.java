@@ -43,4 +43,12 @@ public class Compra {
 			return false;
 		return true;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
 }
