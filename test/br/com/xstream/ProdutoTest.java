@@ -12,7 +12,7 @@ public class ProdutoTest {
 	public void deveGerarXMLAdequadamente() {
 		String xmlEsperado = "<produto codigo=\"1587\">\n"
 							+ "  <nome>Geladeira</nome>\n"
-							+ "  <preco>2000.0</preco>\n"
+							+ "  <preco>R$ 2.000,00</preco>\n"
 							+ "  <descrição>Geladeira com freezer invertido</descrição>\n"
 							+ "</produto>";
 		
@@ -21,6 +21,7 @@ public class ProdutoTest {
 		XStream xstream = new XStream();
 		xstream.alias("produto", Produto.class);
 		xstream.aliasField("descrição", Produto.class, "descricao");
+		xstream.registerLocalConverter(Produto.class, "preco", new PrecoSimplesConverter());
 		xstream.useAttributeFor(Produto.class, "codigo");
 		String xmlGerado = xstream.toXML(geladeira);
 		
